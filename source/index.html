@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home | Community Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container { padding: 40px 10%; }
+        .post { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .post-header { font-weight: bold; color: var(--primary); margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Community<span>Hub</span></a>
+        <div>
+            <a href="index.html" style="margin-right:20px">Board</a>
+            <a href="login.html" class="btn-primary" style="padding: 8px 15px;">Logout</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Community Feed</h1>
+        
+        <div class="post">
+            <div class="post-header">@NeighborSam</div>
+            <p>Does anyone have a ladder I could borrow for an hour this afternoon? I need to clean my gutters!</p>
+        </div>
+
+        <div class="post">
+            <div class="post-header">@LocalPolice_Dept</div>
+            <p>Reminder: Annual block party starts at 2 PM tomorrow. Main Street will be closed to traffic.</p>
+        </div>
+
+        <div class="text-center">
+            <button class="btn-primary" style="width: auto;" onclick="alert('Post feature coming soon!')">+ Create New Post</button>
+        </div>
+    </main>
+</body>
+</html>
