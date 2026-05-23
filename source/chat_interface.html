@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CommunityConnect - Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>CommunityConnect Chat</h1>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="chat_interface.html" class="active">Chat</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="chat-container">
+    <aside class="chat-rooms" style="background: var(--bg-card); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+      <h2>Chat Rooms</h2>
+      <ul>
+        <li class="active">General</li>
+        <li>Events</li>
+        <li>Local Chapters</li>
+      </ul>
+    </aside>
+
+    <main class="chat-main" style="background: var(--bg-card); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+      <h2>General Chat</h2>
+      <div class="chat-window">
+        <div class="message"><strong>Jayden:</strong> Hello everyone!</div>
+        <div class="message"><strong>Sasha:</strong> Hi Jayden! Excited for the cleanup?</div>
+      </div>
+      <form class="chat-form">
+        <input type="text" placeholder="Type your message..." style="flex: 1;" required />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+
+    <aside class="online-members" style="background: var(--bg-card); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+      <h2>Online Members</h2>
+      <ul>
+        <li>Jayden</li>
+        <li>Sasha</li>
+        <li>Chris</li>
+      </ul>
+    </aside>
+  </div>
+</body>
+</html>

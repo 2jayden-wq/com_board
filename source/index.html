@@ -1,40 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Home | Community Hub</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .container { padding: 40px 10%; }
-        .post { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .post-header { font-weight: bold; color: var(--primary); margin-bottom: 5px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CommunityConnect - Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>CommunityConnect</h1>
     <nav class="navbar">
-        <a href="index.html" class="logo">Community<span>Hub</span></a>
-        <div>
-            <a href="index.html" style="margin-right:20px">Board</a>
-            <a href="login.html" class="btn-primary" style="padding: 8px 15px;">Logout</a>
-        </div>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="chat_interface.html">Chat</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <main class="container">
-        <h1>Community Feed</h1>
-        
-        <div class="post">
-            <div class="post-header">@NeighborSam</div>
-            <p>Does anyone have a ladder I could borrow for an hour this afternoon? I need to clean my gutters!</p>
+  <div class="layout">
+    <main>
+      <section class="welcome">
+        <h2>Welcome back, Jayden!</h2>
+        <p>Ready to make a difference today?</p>
+        <div class="stats">
+          <div class="stat-card">
+            <h3>491</h3>
+            <p>Total Members</p>
+          </div>
+          <div class="stat-card">
+            <h3>8</h3>
+            <p>Upcoming Events</p>
+          </div>
+          <div class="stat-card">
+            <h3>2568</h3>
+            <p>Hours Volunteered</p>
+          </div>
         </div>
+      </section>
 
-        <div class="post">
-            <div class="post-header">@LocalPolice_Dept</div>
-            <p>Reminder: Annual block party starts at 2 PM tomorrow. Main Street will be closed to traffic.</p>
-        </div>
+      <section class="about">
+        <h3>About CommunityConnect</h3>
+        <p>Join us in making the world a better place, one act of kindness at a time.</p>
+      </section>
 
-        <div class="text-center">
-            <button class="btn-primary" style="width: auto;" onclick="alert('Post feature coming soon!')">+ Create New Post</button>
-        </div>
+      <section>
+        <h3>Upcoming Schedule Feed</h3>
+        <ul id="home-event-list" class="event-list"></ul>
+      </section>
     </main>
+
+    <aside>
+      <section class="quick-links">
+        <h3>Quick Links</h3>
+        <ul style="list-style: none; padding-left: 0; display: grid; gap: 0.5rem;">
+          <li><a href="volunteer-guide.html" style="color: var(--primary); text-decoration: none;">Volunteer Guide</a></li>
+          <li><a href="faqs.html" style="color: var(--primary); text-decoration: none;">FAQs</a></li>
+          <li><a href="contact support.html" style="color: var(--primary); text-decoration: none;">Contact Support</a></li>
+        </ul>
+      </section>
+
+      <section class="spotlight">
+        <h3>Spotlight Member</h3>
+        <p>Sasha Lawson</p>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    const defaultEvents = [
+      { title: "Park Cleanup", date: "2026-05-12" },
+      { title: "Food Drive", date: "2026-05-15" },
+      { title: "Urban Garden Project", date: "2026-05-17" }
+    ];
+
+    function getStoredEvents() {
+      const stored = localStorage.getItem('communityEvents');
+      if (!stored) {
+        localStorage.setItem('communityEvents', JSON.stringify(defaultEvents));
+        return defaultEvents;
+      }
+      return JSON.parse(stored);
+    }
+
+    function formatDisplayDate(rawDateString) {
+      if (!rawDateString) return "Unknown Date";
+      const eventDate = new Date(rawDateString);
+      return eventDate.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'UTC'
+      });
+    }
+
+    function renderDashboardEvents() {
+      const events = getStoredEvents();
+      const listElement = document.getElementById('home-event-list');
+      listElement.innerHTML = '';
+
+      events.forEach(event => {
+        const li = document.createElement('li');
+        li.className = 'event-item';
+        li.innerHTML = `<strong>${event.title}</strong> – <span class="event-date">${formatDisplayDate(event.date)}</span>`;
+        listElement.appendChild(li);
+      });
+    }
+    
+    window.addEventListener('DOMContentLoaded', renderDashboardEvents);
+  </script>
 </body>
 </html>

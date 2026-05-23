@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events - CommunityConnect</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Inline tweak to style the delete button nicely inline */
+    .event-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .delete-btn {
+      background: #ef4444;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.875rem;
+    }
+    .delete-btn:hover {
+      background: #dc2626;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CommunityConnect</h1>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="chat_interface.html">Chat</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section>
+        <h2>Upcoming Events</h2>
+        <ul id="master-event-list" class="event-list"></ul>
+      </section>
+    </main>
+
+    <aside>
+      <section>
+        <h3>Register New Event</h3>
+        <form id="event-form">
+          <div class="form-group">
+            <label for="title">Event Name</label>
+            <input type="text" id="title" placeholder="e.g., Neighborhood Clean" required>
+          </div>
+          <div class="form-group">
+            <label for="date">Calendar Date</label>
+            <input type="date" id="date" required>
+          </div>
+          <button type="submit" style="width: 100%;">Post Event</button>
+        </form>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    // Hardcoded initial events given completely unique IDs (timestamps)
+    const defaultEvents = [
+      { id: 1715472000001, title: "Park Cleanup", date: "2026-05-12" },
+      { id: 1715731200002, title: "Food Drive", date: "2026-05-15" },
+      { id: 1715904000003, title: "Urban Garden Project", date: "2026-05-17" }
+    ];
+
+    function getStoredEvents() {
+      const stored = localStorage.getItem('communityEvents');
+      if (!stored) {
+        localStorage.setItem('communityEvents', JSON.stringify(defaultEvents));
+        return defaultEvents;
+      }
+      return JSON.parse(stored);
+    }
+
+    function formatDisplayDate(rawDateString) {
+      if (!rawDateString) return "Unknown Date";
+      const eventDate = new Date(rawDateString);
+      return eventDate.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'UTC'
+      });
+    }
+
+    const masterList = document.getElementById('master-event-list');
+    const form = document.getElementById('event-form');
+
+    function renderEventsPage() {
+      const events = getStoredEvents();
+      masterList.innerHTML = '';
+
+      events.forEach(event => {
+        const li = document.createElement('li');
+        li.className = 'event-item';
+        
+        // Wrap the ID in quotes inside the function call to prevent parsing issues
+        li.innerHTML = `
+          <div>
+            <strong>${event.title}</strong> – <span class="event-date">${formatDisplayDate(event.date)}</span>
+          </div>
+          <button class="delete-btn" onclick="deleteEvent('${event.id}')">Delete</button>
+        `;
+        masterList.appendChild(li);
+      });
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const titleInput = document.getElementById('title');
+      const dateInput = document.getElementById('date');
+
+      const currentEvents = getStoredEvents();
+      
+      // CRITICAL FIX: Generates a completely unique string ID using timestamp + random string
+      const uniqueId = Date.now().toString() + Math.random().toString(36).substr(2, 5);
+
+      currentEvents.push({
+        id: uniqueId, 
+        title: titleInput.value,
+        date: dateInput.value
+      });
+
+      localStorage.setItem('communityEvents', JSON.stringify(currentEvents));
+      renderEventsPage();
+      form.reset();
+    });
+
+    function deleteEvent(eventId) {
+      const currentEvents = getStoredEvents();
+      
+      // Convert to string to ensure strict type matching when filtering
+      const filteredEvents = currentEvents.filter(event => event.id.toString() !== eventId.toString());
+      
+      localStorage.setItem('communityEvents', JSON.stringify(filteredEvents));
+      renderEventsPage(); 
+    }
+
+    window.addEventListener('DOMContentLoaded', renderEventsPage);
+  </script>
+</body>
+</html>

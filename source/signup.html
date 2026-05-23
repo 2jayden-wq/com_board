@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Join Us | Community Hub</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CommunityConnect - Sign Up</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="auth-wrapper">
-    <div class="card">
-        <div class="text-center">
-            <h2>Create Account</h2>
-            <p>Join your local neighborhood board.</p>
+<body>
+  <div class="auth-container">
+    <main class="main-content">
+      <h2>Create Your Account</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Together, we build a better tomorrow</p>
+      
+      <form>
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname" required>
         </div>
-        <form id="signupForm" action="index.html">
-            <script src="script.js"></script>
-            <label>Full Name</label>
-            <input type="text" placeholder="John Doe" required>
-            
-            <label>Email Address</label>
-            <input type="email" placeholder="email@example.com" required>
-            
-            <label>Password</label>
-            <input type="password" placeholder="Create a password" required>
-            
-            <button type="submit" class="btn-primary">Create Account</button>
-        </form>
-        <div class="text-center">
-            <p>Already a member? <a href="login.html">Login</a></p>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
         </div>
-    </div>
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="button" onclick="window.location.href='index.html'" style="width: 100%; margin-bottom: 0.5rem;">Sign Up</button>
+        <button type="button" onclick="window.location.href='login.html'" style="width: 100%; background: var(--text-muted);">Back to Login</button>
+      </form>
+    </main>
+  </div>
 </body>
 </html>
